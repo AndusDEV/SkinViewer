@@ -19,3 +19,12 @@ dependencies {
 test {
     useJUnitPlatform()
 }
+
+apply plugin: 'java'
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'pl.andus.SkinViewer.Window'
+        )
+    }
+}
