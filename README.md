@@ -1,6 +1,9 @@
 # SkinViewer
 
-# Installation:
+## Dependencies:
+- Java 1.8+
+
+## Installation:
  
 1. [Download newest release](https://github.com/AndusDEV/SkinViewer/releases/latest)
 2. Go to folder where you downloaded .jar file
