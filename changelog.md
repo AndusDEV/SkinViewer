@@ -1,5 +1,10 @@
 # Changelog
 
+## SkinViewer 0.1.1
+
+Repaired:
+ - "Working" Changelog
+
 ## SkinViewer 0.1
 
 What's new:
