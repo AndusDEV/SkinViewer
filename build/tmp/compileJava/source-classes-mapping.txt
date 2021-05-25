@@ -2,14 +2,14 @@ pl/andus/SkinViewer/logger/Logger.java
  pl.andus.SkinViewer.logger.Logger
 pl/andus/SkinViewer/Utils.java
  pl.andus.SkinViewer.Utils
+pl/andus/SkinViewer/skin/Skin.java
+ pl.andus.SkinViewer.skin.Skin
+pl/andus/SkinViewer/Credits.java
+ pl.andus.SkinViewer.Credits
 pl/andus/SkinViewer/Constants.java
  pl.andus.SkinViewer.Constants
 pl/andus/SkinViewer/Window.java
  pl.andus.SkinViewer.Window
-pl/andus/SkinViewer/Credits.java
- pl.andus.SkinViewer.Credits
-pl/andus/SkinViewer/skin/Skin.java
- pl.andus.SkinViewer.skin.Skin
 pl/andus/SkinViewer/wForm.java
  pl.andus.SkinViewer.wForm
  pl.andus.SkinViewer.wForm$1

@@ -18,6 +18,14 @@ public class Skin {
     private BufferedImage legRight;
     private BufferedImage ogSkinImage;
     private BufferedImage full;
+
+    public BufferedImage secSkinImage;
+    private BufferedImage head2;
+    private BufferedImage body2;
+    private BufferedImage armLeft2;
+    private BufferedImage armRight2;
+    private BufferedImage legLeft2;
+    private BufferedImage legRight2;
     private Logger log;
 
     public Skin(String usr){
@@ -45,10 +53,32 @@ public class Skin {
         skinImage.getGraphics().drawImage(armRight, 12, 8, 4, 12, null);
         skinImage.getGraphics().drawImage(legLeft, 4, 20, 4, 12, null);
         skinImage.getGraphics().drawImage(legRight, 8, 20, 4, 12, null);
+
+        if(image.getHeight(null) == 64) {
+            head2 = image.getSubimage(40, 8, 8, 8);
+            body2 = image.getSubimage(20, 36, 8, 12);
+            armLeft2 = image.getSubimage(52, 52, 8, 12);
+            armRight2 = Utils.flipImage(armLeft2);
+            legLeft2 = image.getSubimage(4, 52, 4, 12);
+            legRight2 = Utils.flipImage(legLeft2);
+            secSkinImage = new BufferedImage(16, 32, BufferedImage.TYPE_INT_ARGB);
+            secSkinImage.getGraphics().drawImage(head2, 4, 0, 8, 8, null);
+            secSkinImage.getGraphics().drawImage(body2, 4, 8, 8, 12, null);
+            secSkinImage.getGraphics().drawImage(armLeft2, 0, 8, 4, 12, null);
+            secSkinImage.getGraphics().drawImage(armRight2, 12, 8, 4, 12, null);
+            secSkinImage.getGraphics().drawImage(legLeft2, 4, 20, 4, 12, null);
+            secSkinImage.getGraphics().drawImage(legRight2, 8, 20, 4, 12, null);
+        } else {
+
+        }
     }
 
     public BufferedImage getSkin() {
         return skinImage;
+    }
+
+    public BufferedImage getsecSkin() {
+        return secSkinImage;
     }
 
     public BufferedImage getOgSkin(String usr) {

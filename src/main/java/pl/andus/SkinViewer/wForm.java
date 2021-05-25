@@ -3,6 +3,7 @@ package pl.andus.SkinViewer;
 import me.kbrewster.exceptions.APIException;
 import me.kbrewster.mojangapi.MojangAPI;
 import me.kbrewster.mojangapi.profile.Profile;
+import pl.andus.SkinViewer.logger.Logger;
 import pl.andus.SkinViewer.skin.Skin;
 
 import javax.swing.*;
@@ -10,19 +11,24 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.net.URL;
 
 import static me.kbrewster.mojangapi.MojangAPI.getUUID;
 
 public class wForm extends JPanel {
 
+    public Image secImage;
     public Image image;
     public Image ogImage;
     public JLabel skinLabel = new JLabel();
+    public JLabel secSkinLabel = new JLabel();
     JLabel ogLabel = new JLabel();
     JLabel ogSkinLabel = new JLabel();
     Profile userProfile;
 
     JTextField usernameTf = new JTextField();
+
+    private Logger log;
 
     public Image mrAndussImg;
 
@@ -48,6 +54,7 @@ public class wForm extends JPanel {
         p.setBackground(new Color(100, 120, 136));
 
         skinLabel.setBounds(0,0, 30, 30);
+        secSkinLabel.setBounds(0,0, 30, 30);
 
         ogLabel.setBounds(650, 325, 170, 30);
         ogLabel.setOpaque(false);
@@ -56,6 +63,7 @@ public class wForm extends JPanel {
         ogSkinLabel.setOpaque(false);
 
         p.add(skinLabel);
+        p.add(secSkinLabel);
         p.add(ogLabel);
         p.add(ogSkinLabel);
         p.setVisible(true);
@@ -116,6 +124,9 @@ public class wForm extends JPanel {
                 try {
                     createNewSkinLabel();
 
+                    secSkinLabel.setBounds(310,70,160,320);
+                    secSkinLabel.setIcon(new ImageIcon(secImage));
+
                     //skinLabel changes
                     skinLabel.setBounds(310,70,160,320);
                     skinLabel.setIcon(new ImageIcon(image));
@@ -160,9 +171,16 @@ public class wForm extends JPanel {
             public void actionPerformed(ActionEvent actionEvent) {
                 JFrame changesFrame = new JFrame("MC Skin Viewer - Changelog");
 
-                JPanel changesPanel = new JPanel();
+                JEditorPane editorPane = new JEditorPane();
+                editorPane.setEditable(false);
 
+                try {
+                    editorPane.setPage(new URL("https://raw.githubusercontent.com/AndusDEV/SkinViewer/main/changelog.md"));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
+                changesFrame.add(new JScrollPane(editorPane));
 
                 changesFrame.setPreferredSize(Constants.changesSize);
                 changesFrame.setResizable(Constants.resize);
@@ -205,6 +223,7 @@ public class wForm extends JPanel {
         String userUrl = userProfile.getTextures().getTextures().getSkin().getUrl();
         Skin skin = new Skin(userUrl);
         image = skin.getSkin().getScaledInstance(160, 320, 0);
+        secImage = skin.getsecSkin().getScaledInstance(160, 320, 0);
         ogImage = skin.getOgSkin(userProfile.getTextures().getTextures().getSkin().getUrl());
         if(ogImage.getHeight(null) == 32) {
             ogImage = skin.getOgSkin(userProfile.getTextures().getTextures().getSkin().getUrl()).getScaledInstance(115, 57, 0);

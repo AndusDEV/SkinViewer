@@ -11,8 +11,5 @@ public class Constants {
     public static boolean resize = false;
 
     //App
-    public static String version = "0.1";
-
-        //App - Changelog
-    public static String changelog = "";
+    public static String version = "0.1.1";
 }
