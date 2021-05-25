@@ -19,13 +19,25 @@ public class Skin {
     private BufferedImage ogSkinImage;
     private BufferedImage full;
 
+
     public BufferedImage secSkinImage;
+
+    //for future use (displaying/hiding only some of second layer)
+    public BufferedImage secSkinHead;
+    public BufferedImage secSkinBody;
+    public BufferedImage secSkinArmL;
+    public BufferedImage secSkinArmR;
+    public BufferedImage secSkinLegL;
+    public BufferedImage secSkinLegR;
+
     private BufferedImage head2;
     private BufferedImage body2;
     private BufferedImage armLeft2;
     private BufferedImage armRight2;
     private BufferedImage legLeft2;
     private BufferedImage legRight2;
+
+
     private Logger log;
 
     public Skin(String usr){

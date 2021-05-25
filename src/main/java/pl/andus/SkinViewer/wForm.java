@@ -12,6 +12,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import static me.kbrewster.mojangapi.MojangAPI.getUUID;
 
@@ -22,15 +24,26 @@ public class wForm extends JPanel {
     public Image ogImage;
     public JLabel skinLabel = new JLabel();
     public JLabel secSkinLabel = new JLabel();
+
     JLabel ogLabel = new JLabel();
     JLabel ogSkinLabel = new JLabel();
     Profile userProfile;
-
     JTextField usernameTf = new JTextField();
-
-    private Logger log;
-
     public Image mrAndussImg;
+
+    JCheckBox secSkinCb = new JCheckBox("Show/Hide Second Layer");
+
+    //for future use (displaying/hiding only some of second layer)
+    JCheckBox hatCb = new JCheckBox("Hat");
+    JCheckBox jacketCb = new JCheckBox("Jacket");
+    JCheckBox armLcb = new JCheckBox("Left Sleeve");
+    JCheckBox armRcb = new JCheckBox("Right Sleeve");
+    JCheckBox legLcb = new JCheckBox("Left Pants");
+    JCheckBox legRcb = new JCheckBox("Right Pants");
+
+    public JLayeredPane layeredPane = new JLayeredPane();
+
+    private Logger log = new Logger();
 
     public wForm() {
         this.setLayout(null);
@@ -53,8 +66,7 @@ public class wForm extends JPanel {
         p.setPreferredSize(new Dimension(600, 600));
         p.setBackground(new Color(100, 120, 136));
 
-        skinLabel.setBounds(0,0, 30, 30);
-        secSkinLabel.setBounds(0,0, 30, 30);
+        layeredPane.setBounds(0, 0, 790, 580);
 
         ogLabel.setBounds(650, 325, 170, 30);
         ogLabel.setOpaque(false);
@@ -62,8 +74,12 @@ public class wForm extends JPanel {
         ogSkinLabel.setBounds(680, 365, 115, 115);
         ogSkinLabel.setOpaque(false);
 
-        p.add(skinLabel);
-        p.add(secSkinLabel);
+        //layers
+        layeredPane.add(secSkinLabel);
+        layeredPane.add(skinLabel);
+
+        p.add(layeredPane);
+        p.add(secSkinCb);
         p.add(ogLabel);
         p.add(ogSkinLabel);
         p.setVisible(true);
@@ -124,12 +140,20 @@ public class wForm extends JPanel {
                 try {
                     createNewSkinLabel();
 
-                    secSkinLabel.setBounds(310,70,160,320);
-                    secSkinLabel.setIcon(new ImageIcon(secImage));
-
                     //skinLabel changes
                     skinLabel.setBounds(310,70,160,320);
                     skinLabel.setIcon(new ImageIcon(image));
+
+                    //show sec skin checkbox
+                    secSkinCb.setBackground(new Color(100, 120, 136));
+                    secSkinCb.setBounds(285, 30, 200, 13);
+                    if (ogImage.getHeight(null) == 57) {
+                        secSkinCb.setEnabled(false);
+                        log.info("Second Layer not avalable for this skin(64x32)");
+                    } else {
+                        secSkinCb.setEnabled(true);
+                    }
+
 
                     //ogSkinLabel changes
                     ogLabel.setText("Original Skin File:");
@@ -215,6 +239,21 @@ public class wForm extends JPanel {
             }
         });
 
+        secSkinCb.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                if(secSkinCb.isSelected()) {
+                    secSkinLabel.setVisible(true);
+                    secSkinLabel.setBounds(310,70,160,320);
+                    secSkinLabel.setIcon(new ImageIcon(secImage));
+                    log.info("Second layer visible");
+                } else {
+                    secSkinLabel.setVisible(false);
+                    log.info("Second layer hidden");
+                }
+            }
+        });
+
         return up;
     }
 
@@ -223,12 +262,17 @@ public class wForm extends JPanel {
         String userUrl = userProfile.getTextures().getTextures().getSkin().getUrl();
         Skin skin = new Skin(userUrl);
         image = skin.getSkin().getScaledInstance(160, 320, 0);
-        secImage = skin.getsecSkin().getScaledInstance(160, 320, 0);
         ogImage = skin.getOgSkin(userProfile.getTextures().getTextures().getSkin().getUrl());
         if(ogImage.getHeight(null) == 32) {
             ogImage = skin.getOgSkin(userProfile.getTextures().getTextures().getSkin().getUrl()).getScaledInstance(115, 57, 0);
         } else {
             ogImage = skin.getOgSkin(userProfile.getTextures().getTextures().getSkin().getUrl()).getScaledInstance(115, 115, 0);
+        }
+
+        if (ogImage.getHeight(null) == 57) {
+
+        } else {
+            secImage = skin.getsecSkin().getScaledInstance(160, 320, 0);
         }
     }
 
