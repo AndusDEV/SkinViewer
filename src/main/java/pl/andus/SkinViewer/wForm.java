@@ -6,11 +6,8 @@ import me.kbrewster.mojangapi.profile.Profile;
 import pl.andus.SkinViewer.logger.Logger;
 import pl.andus.SkinViewer.skin.Skin;
 
-import javax.sound.sampled.*;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.URL;
 
@@ -42,7 +39,7 @@ public class wForm extends JPanel {
 
     public JLayeredPane layeredPane = new JLayeredPane();
 
-    private Logger log = new Logger();
+    private final Logger log = new Logger();
 
     public wForm() {
         this.setLayout(null);
@@ -134,124 +131,104 @@ public class wForm extends JPanel {
         up.add(btnTexture);
         up.setVisible(true);
 
-        btnResult.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-                try {
-                    createNewSkinLabel();
+        btnResult.addActionListener(arg0 -> {
+            try {
+                createNewSkinLabel();
 
-                    //skinLabel changes
-                    skinLabel.setBounds(310,70,160,320);
-                    skinLabel.setIcon(new ImageIcon(image));
+                //skinLabel changes
+                skinLabel.setBounds(310,70,160,320);
+                skinLabel.setIcon(new ImageIcon(image));
 
-                    //show sec skin checkbox
-                    secSkinCb.setBackground(new Color(100, 120, 136));
-                    secSkinCb.setBounds(285, 30, 200, 13);
-                    if (ogImage.getHeight(null) == 57) {
-                        secSkinCb.setEnabled(false);
-                        log.info("Second Layer not avalable for this skin(64x32)");
-                    } else {
-                        secSkinCb.setEnabled(true);
-                    }
-
-
-                    //ogSkinLabel changes
-                    ogLabel.setText("Original Skin File:");
-                    ogSkinLabel.setIcon(new ImageIcon(ogImage));
-                    if(ogSkinLabel.getHeight() == 64) {
-                        ogSkinLabel.setBounds(680, 365, 115, 115);
-                    } else if (ogSkinLabel.getHeight() == 32) {
-                        ogSkinLabel.setBounds(680, 365, 115, 57);
-                    }
-
-                    //showedNowLabel changes
-                    showedNowLabel.setText("<html>Now displaying skin of: <font style=\"color:#9dff00\">" + userProfile.getName() + "</font></html>");
-
-                    btnNmcProf.setVisible(true);
-
-                    btnNmcProf.addActionListener(new ActionListener() {
-                        @Override
-                        public void actionPerformed(ActionEvent arg0) {
-                            Utils.openWebpage("https://namemc.com/profile/" + userProfile.getId());
-                        }
-                    });
-
-                    btnTexture.setVisible(true);
-
-                    btnTexture.addActionListener(new ActionListener() {
-                        @Override
-                        public void actionPerformed(ActionEvent arg0) {
-                            Utils.openWebpage(userProfile.getTextures().getTextures().getSkin().getUrl());
-                        }
-                    });
-
-                    Utils.playExp("expsound.wav");
-                } catch (APIException | IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-
-        btnChanges.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                JFrame changesFrame = new JFrame("MC Skin Viewer - Changelog");
-
-                JEditorPane editorPane = new JEditorPane();
-                editorPane.setEditable(false);
-
-                try {
-                    editorPane.setPage(new URL("https://raw.githubusercontent.com/AndusDEV/SkinViewer/main/changelog.md"));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-                changesFrame.add(new JScrollPane(editorPane));
-
-                changesFrame.setPreferredSize(Constants.changesSize);
-                changesFrame.setResizable(Constants.resize);
-                changesFrame.setLocationRelativeTo(null);
-                changesFrame.pack();
-                changesFrame.setVisible(true);
-            }
-        });
-
-        btnCredits.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                JFrame creditsFrame = new JFrame("MC Skin Viewer - Credits");
-
-                try {
-                    creditsMrAnduss();
-                } catch (APIException | IOException e) {
-                    e.printStackTrace();
-                }
-
-                JPanel cp = creditsPanel();
-
-                cp.setBounds(0,0, 790, 480);
-
-                creditsFrame.add(cp);
-
-                creditsFrame.setPreferredSize(Constants.changesSize);
-                creditsFrame.setResizable(Constants.resize);
-                creditsFrame.setLocationRelativeTo(null);
-                creditsFrame.pack();
-                creditsFrame.setVisible(true);
-            }
-        });
-
-        secSkinCb.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                if(secSkinCb.isSelected()) {
-                    secSkinLabel.setVisible(true);
-                    secSkinLabel.setBounds(310,70,160,320);
-                    secSkinLabel.setIcon(new ImageIcon(secImage));
-                    log.info("Second layer visible");
+                //show sec skin checkbox
+                secSkinCb.setBackground(new Color(100, 120, 136));
+                secSkinCb.setBounds(285, 30, 200, 13);
+                if (ogImage.getHeight(null) == 57) {
+                    secSkinCb.setEnabled(false);
+                    log.info("Second Layer not avalable for this skin(64x32)");
                 } else {
-                    secSkinLabel.setVisible(false);
-                    log.info("Second layer hidden");
+                    secSkinCb.setEnabled(true);
                 }
+
+
+                //ogSkinLabel changes
+                ogLabel.setText("Original Skin File:");
+                ogSkinLabel.setIcon(new ImageIcon(ogImage));
+                if(ogSkinLabel.getHeight() == 64) {
+                    ogSkinLabel.setBounds(680, 365, 115, 115);
+                } else if (ogSkinLabel.getHeight() == 32) {
+                    ogSkinLabel.setBounds(680, 365, 115, 57);
+                }
+
+                //showedNowLabel changes
+                showedNowLabel.setText("<html>Now displaying skin of: <font style=\"color:#9dff00\">" + userProfile.getName() + "</font></html>");
+
+                btnNmcProf.setVisible(true);
+
+                btnNmcProf.addActionListener(arg01 -> Utils.openWebpage("https://namemc.com/profile/" + userProfile.getId()));
+
+                btnTexture.setVisible(true);
+
+                btnTexture.addActionListener(arg012 -> Utils.openWebpage(userProfile.getTextures().getTextures().getSkin().getUrl()));
+
+                Utils.playExp();
+
+            } catch (APIException | IOException e) {
+                e.printStackTrace();
+            }
+        });
+
+        btnChanges.addActionListener(actionEvent -> {
+            JFrame changesFrame = new JFrame("MC Skin Viewer - Changelog");
+
+            JEditorPane editorPane = new JEditorPane();
+            editorPane.setEditable(false);
+
+            try {
+                editorPane.setPage(new URL("https://raw.githubusercontent.com/AndusDEV/SkinViewer/main/changelog.md"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            changesFrame.add(new JScrollPane(editorPane));
+
+            changesFrame.setPreferredSize(Constants.changesSize);
+            changesFrame.setResizable(Constants.resize);
+            changesFrame.setLocationRelativeTo(null);
+            changesFrame.pack();
+            changesFrame.setVisible(true);
+        });
+
+        btnCredits.addActionListener(actionEvent -> {
+            JFrame creditsFrame = new JFrame("MC Skin Viewer - Credits");
+
+            try {
+                creditsMrAnduss();
+            } catch (APIException | IOException e) {
+                e.printStackTrace();
+            }
+
+            JPanel cp = creditsPanel();
+
+            cp.setBounds(0,0, 790, 480);
+
+            creditsFrame.add(cp);
+
+            creditsFrame.setPreferredSize(Constants.changesSize);
+            creditsFrame.setResizable(Constants.resize);
+            creditsFrame.setLocationRelativeTo(null);
+            creditsFrame.pack();
+            creditsFrame.setVisible(true);
+        });
+
+        secSkinCb.addActionListener(actionEvent -> {
+            if(secSkinCb.isSelected()) {
+                secSkinLabel.setVisible(true);
+                secSkinLabel.setBounds(310,70,160,320);
+                secSkinLabel.setIcon(new ImageIcon(secImage));
+                log.info("Second layer visible");
+            } else {
+                secSkinLabel.setVisible(false);
+                log.info("Second layer hidden");
             }
         });
 
@@ -317,23 +294,13 @@ public class wForm extends JPanel {
         btnGithubAdev.setBounds(0, 0, 10, 15);
         btnGithubAdev.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        btnGithubAdev.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                Utils.openWebpage("https://github.com/AndusDEV/");
-            }
-        });
+        btnGithubAdev.addActionListener(arg0 -> Utils.openWebpage("https://github.com/AndusDEV/"));
 
         JButton btnGithubRepo = new JButton("Github Repo");
         btnGithubAdev.setBounds(0, 0, 10, 15);
         btnGithubAdev.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        btnGithubRepo.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                Utils.openWebpage("https://github.com/AndusDEV/SkinViewer");
-            }
-        });
+        btnGithubRepo.addActionListener(arg0 -> Utils.openWebpage("https://github.com/AndusDEV/SkinViewer"));
 
         //MojangAPI Panel
         JLabel mojangApi = new JLabel("Mojang-API");
@@ -344,12 +311,7 @@ public class wForm extends JPanel {
         btnGithubMojAPI.setBounds(20, 0, 10, 15);
         btnGithubMojAPI.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        btnGithubMojAPI.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                Utils.openWebpage("https://github.com/KevinPriv/MojangAPI");
-            }
-        });
+        btnGithubMojAPI.addActionListener(arg0 -> Utils.openWebpage("https://github.com/KevinPriv/MojangAPI"));
 
         //NameMC Panel
         JLabel nameMC = new JLabel("NameMC");
@@ -360,12 +322,7 @@ public class wForm extends JPanel {
         btnNmcWebsite.setBounds( 20, 0, 10, 15);
         btnNmcWebsite.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        btnNmcWebsite.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                Utils.openWebpage("https://namemc.com");
-            }
-        });
+        btnNmcWebsite.addActionListener(arg0 -> Utils.openWebpage("https://namemc.com"));
 
         //Associations Panel
         JLabel associationInfo = new JLabel("I'm NOT associated with Mojang and/or NameMC", JLabel.CENTER);

@@ -8,11 +8,9 @@ import java.net.URL;
 
 public class Credits {
     private static BufferedImage skinMrAnduss;
-    private BufferedImage head;
-    private Logger log;
 
     public Credits(String mrUrl) {
-        log = new Logger();
+        Logger log = new Logger();
         BufferedImage image = null;
 
         try {
@@ -21,9 +19,10 @@ public class Credits {
             url = url.openConnection().getURL();
             image = ImageIO.read(url);
         } catch (Exception e) {
-            log.error("Error reading skin: " + e.toString());
+            log.error("Error reading skin: " + e);
         }
-        head = image.getSubimage(8, 8, 8, 8);
+        assert image != null;
+        BufferedImage head = image.getSubimage(8, 8, 8, 8);
         skinMrAnduss = new BufferedImage(32, 32, BufferedImage.TYPE_INT_ARGB);
         skinMrAnduss.getGraphics().drawImage(head, 0, 0, 32, 32, null);
     }

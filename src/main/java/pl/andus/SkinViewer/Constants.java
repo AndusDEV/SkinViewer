@@ -1,7 +1,6 @@
 package pl.andus.SkinViewer;
 
 import java.awt.Dimension;
-import java.net.URL;
 
 public class Constants {
     //Window

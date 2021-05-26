@@ -6,23 +6,22 @@ import java.util.Date;
 
 public class Logger {
 
-    private String prefix_info = "[INFO] ";
-    private String prefix_warning = "[WARNING] ";
-    private String prefix_error = "[ERROR] ";
-
     public Logger() {
 
     }
 
     public void info(String input) {
+        String prefix_info = "[INFO] ";
         System.out.println(prefix_info + getTimeAndDate() + ": " + input);
     }
 
     public void warning(String input) {
+        String prefix_warning = "[WARNING] ";
         System.out.println(prefix_warning + getTimeAndDate() + ": " + input);
     }
 
     public void error(String input) {
+        String prefix_error = "[ERROR] ";
         System.out.println(prefix_error + getTimeAndDate() + ": " + input);
     }
 

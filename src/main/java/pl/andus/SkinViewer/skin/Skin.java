@@ -10,14 +10,7 @@ import pl.andus.SkinViewer.logger.Logger;
 public class Skin {
 
     public BufferedImage skinImage;
-    private BufferedImage head;
-    private BufferedImage body;
-    private BufferedImage armLeft;
-    private BufferedImage armRight;
-    private BufferedImage legLeft;
-    private BufferedImage legRight;
     private BufferedImage ogSkinImage;
-    private BufferedImage full;
 
 
     public BufferedImage secSkinImage;
@@ -29,13 +22,6 @@ public class Skin {
     public BufferedImage secSkinArmR;
     public BufferedImage secSkinLegL;
     public BufferedImage secSkinLegR;
-
-    private BufferedImage head2;
-    private BufferedImage body2;
-    private BufferedImage armLeft2;
-    private BufferedImage armRight2;
-    private BufferedImage legLeft2;
-    private BufferedImage legRight2;
 
 
     private Logger log;
@@ -49,15 +35,16 @@ public class Skin {
             url = url.openConnection().getURL();
             image = ImageIO.read(url);
         } catch (Exception e) {
-            log.error("Error reading skin: " + e.toString());
+            log.error("Error reading skin: " + e);
         }
 
-        head = image.getSubimage(8, 8, 8, 8);
-        body = image.getSubimage(20, 20, 8, 12);
-        armLeft = image.getSubimage(44, 20, 8, 12);
-        armRight = Utils.flipImage(armLeft);
-        legLeft = image.getSubimage(4, 20, 4, 12);
-        legRight = Utils.flipImage(legLeft);
+        assert image != null;
+        BufferedImage head = image.getSubimage(8, 8, 8, 8);
+        BufferedImage body = image.getSubimage(20, 20, 8, 12);
+        BufferedImage armLeft = image.getSubimage(44, 20, 8, 12);
+        BufferedImage armRight = Utils.flipImage(armLeft);
+        BufferedImage legLeft = image.getSubimage(4, 20, 4, 12);
+        BufferedImage legRight = Utils.flipImage(legLeft);
         skinImage = new BufferedImage(16, 32, BufferedImage.TYPE_INT_ARGB);
         skinImage.getGraphics().drawImage(head, 4, 0, 8, 8, null);
         skinImage.getGraphics().drawImage(body, 4, 8, 8, 12, null);
@@ -67,12 +54,12 @@ public class Skin {
         skinImage.getGraphics().drawImage(legRight, 8, 20, 4, 12, null);
 
         if(image.getHeight(null) == 64) {
-            head2 = image.getSubimage(40, 8, 8, 8);
-            body2 = image.getSubimage(20, 36, 8, 12);
-            armLeft2 = image.getSubimage(52, 52, 8, 12);
-            armRight2 = Utils.flipImage(armLeft2);
-            legLeft2 = image.getSubimage(4, 52, 4, 12);
-            legRight2 = Utils.flipImage(legLeft2);
+            BufferedImage head2 = image.getSubimage(40, 8, 8, 8);
+            BufferedImage body2 = image.getSubimage(20, 36, 8, 12);
+            BufferedImage armLeft2 = image.getSubimage(52, 52, 8, 12);
+            BufferedImage armRight2 = Utils.flipImage(armLeft2);
+            BufferedImage legLeft2 = image.getSubimage(4, 52, 4, 12);
+            BufferedImage legRight2 = Utils.flipImage(legLeft2);
             secSkinImage = new BufferedImage(16, 32, BufferedImage.TYPE_INT_ARGB);
             secSkinImage.getGraphics().drawImage(head2, 4, 0, 8, 8, null);
             secSkinImage.getGraphics().drawImage(body2, 4, 8, 8, 12, null);
@@ -80,8 +67,6 @@ public class Skin {
             secSkinImage.getGraphics().drawImage(armRight2, 12, 8, 4, 12, null);
             secSkinImage.getGraphics().drawImage(legLeft2, 4, 20, 4, 12, null);
             secSkinImage.getGraphics().drawImage(legRight2, 8, 20, 4, 12, null);
-        } else {
-
         }
     }
 
@@ -103,9 +88,11 @@ public class Skin {
             url = url.openConnection().getURL();
             ogimage = ImageIO.read(url);
         } catch (Exception e) {
-            log.error("Error reading skin: " + e.toString());
+            log.error("Error reading skin: " + e);
         }
 
+        BufferedImage full;
+        assert ogimage != null;
         if(ogimage.getHeight(null) == 64) {
             full = ogimage.getSubimage(0, 0, 64, 64);
             ogSkinImage = new BufferedImage(64, 64, BufferedImage.TYPE_INT_ARGB);
@@ -114,8 +101,6 @@ public class Skin {
             full = ogimage.getSubimage(0, 0, 64, 32);
             ogSkinImage = new BufferedImage(64, 32, BufferedImage.TYPE_INT_ARGB);
             ogSkinImage.getGraphics().drawImage(full, 0, 0, 64, 32, null);
-        } else {
-
         }
 
         return ogSkinImage;

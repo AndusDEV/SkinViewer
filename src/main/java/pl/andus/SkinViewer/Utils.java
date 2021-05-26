@@ -8,22 +8,7 @@ import java.awt.image.BufferedImage;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-
-import pl.andus.SkinViewer.logger.Logger;
-
-
 public class Utils {
-    private static final Logger log = new Logger();
-
-    public static URL urlFromString(String url) {
-        try {
-            return new URL(url);
-        } catch (MalformedURLException e) {
-            System.out.println("Hm.. Converting of " + url + " url haven't worked.");
-            e.printStackTrace();
-            return null;
-        }
-    }
 
     public static void openWebpage(String urlString) {
         try {
@@ -31,6 +16,16 @@ public class Utils {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static void playExp() {
+        URL file = null;
+        try {
+            file = new URL("https://github.com/AndusDEV/SkinViewer/blob/main/expsound.wav?raw=true");
+        } catch (MalformedURLException ex) {
+            System.err.println(ex);
+        }
+        Applet.newAudioClip(file).play();
     }
 
     //Not mine
@@ -42,15 +37,5 @@ public class Utils {
                 AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
         bufferedImage = op.filter(src, null);
         return bufferedImage;
-    }
-
-    public static void playExp(String path) {
-        URL file = null;
-        try {
-            file = new URL("https://github.com/AndusDEV/SkinViewer/expsound.wav");
-        } catch (MalformedURLException ex) {
-            System.err.println(ex);
-        }
-        Applet.newAudioClip(file).play();
     }
 }
