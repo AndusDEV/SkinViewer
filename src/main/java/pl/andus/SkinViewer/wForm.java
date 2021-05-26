@@ -6,14 +6,13 @@ import me.kbrewster.mojangapi.profile.Profile;
 import pl.andus.SkinViewer.logger.Logger;
 import pl.andus.SkinViewer.skin.Skin;
 
+import javax.sound.sampled.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.URL;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import static me.kbrewster.mojangapi.MojangAPI.getUUID;
 
@@ -184,6 +183,8 @@ public class wForm extends JPanel {
                             Utils.openWebpage(userProfile.getTextures().getTextures().getSkin().getUrl());
                         }
                     });
+
+                    Utils.playExp("expsound.wav");
                 } catch (APIException | IOException e) {
                     e.printStackTrace();
                 }
