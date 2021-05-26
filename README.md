@@ -10,3 +10,8 @@
 3. Open Command Line in the folder where you downloaded .jar.
 4. write _**`java -jar SkinViewer-(v).jar`**_
 (change (v) to version you downloaded. For ex. SkinViewer-0.1.jar)
+
+## Credits:
+
+- AndusDEV
+- Mojang (Exp Sound)
