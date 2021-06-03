@@ -23,6 +23,9 @@
  - Windows 10
  - Ubuntu 20.10
 
+## Contributing
+If you want to add something, push it into `main` branch. I will add it to the `win` (Windows) branch.
+
 ## Credits:
 
 - AndusDEV
