@@ -19,6 +19,10 @@
 4. write _**`java -jar SkinViewer-(v).jar`**_ in Linux or _**`java -jar SkinViewer-Win-(v).jar`**_
 </br>**(change (v) to version you downloaded. For ex. SkinViewer-0.1.jar)**
 
+## Operating Systems tested:
+ - Windows 10
+ - Ubuntu 20.10
+
 ## Credits:
 
 - AndusDEV
