@@ -1,7 +1,10 @@
 # SkinViewer
 
-## Dependencies:
-- Java 1.8+
+## Dev Dependencies:
+- JDK 8+
+
+## User Dependencies:
+- [JRE 8](https://www.java.com/download/)
 
 ## Installation:
 
