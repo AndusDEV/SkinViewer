@@ -3,6 +3,8 @@ package pl.andus.SkinViewer;
 import me.kbrewster.exceptions.APIException;
 import me.kbrewster.mojangapi.MojangAPI;
 import me.kbrewster.mojangapi.profile.Profile;
+import net.arikia.dev.drpc.DiscordRPC;
+import net.arikia.dev.drpc.DiscordRichPresence;
 import pl.andus.SkinViewer.logger.Logger;
 import pl.andus.SkinViewer.skin.Skin;
 
@@ -169,6 +171,9 @@ public class wForm extends JPanel {
                 btnTexture.setVisible(true);
 
                 btnTexture.addActionListener(arg012 -> Utils.openWebpage(userProfile.getTextures().getTextures().getSkin().getUrl()));
+
+                DiscordRichPresence rich = new DiscordRichPresence.Builder("Now displaying skin of: " + userProfile.getName()).setDetails("v" + Constants.version + " By AndusDEV.").setBigImage("icon", "SkinViewer v" + Constants.version).setSmallImage("mranduss", "By AndusDEV/MrAnduss").build();
+                DiscordRPC.discordUpdatePresence(rich);
 
                 Utils.playExp();
 

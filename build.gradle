@@ -12,6 +12,7 @@ repositories {
 
 dependencies {
     compile "com.github.KevinPriv:MojangAPI:1.0"
+    implementation 'com.github.Vatuu:discord-rpc:1.6.2'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
 }
