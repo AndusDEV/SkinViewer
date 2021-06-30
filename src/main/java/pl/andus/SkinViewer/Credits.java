@@ -27,7 +27,7 @@ public class Credits {
         skinMrAnduss.getGraphics().drawImage(head, 0, 0, 32, 32, null);
     }
 
-    public static BufferedImage getMrSkin() {
+    public static BufferedImage getMrSkin(String mrUrl) {
         return skinMrAnduss;
     }
 }

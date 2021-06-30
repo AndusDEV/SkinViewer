@@ -72,6 +72,9 @@ public class wForm extends JPanel {
         ogSkinLabel.setBounds(680, 365, 115, 115);
         ogSkinLabel.setOpaque(false);
 
+        JButton btnSettings = new JButton("Settings");
+        btnSettings.setBounds(660, 20, 100, 25);
+
         //layers
         layeredPane.add(secSkinLabel);
         layeredPane.add(skinLabel);
@@ -80,7 +83,12 @@ public class wForm extends JPanel {
         p.add(secSkinCb);
         p.add(ogLabel);
         p.add(ogSkinLabel);
+        p.add(btnSettings);
         p.setVisible(true);
+
+        btnSettings.addActionListener(actionEvent -> {
+            
+        });
 
         return p;
     }
@@ -262,8 +270,7 @@ public class wForm extends JPanel {
     public void creditsMrAnduss() throws APIException, IOException {
         userProfile = MojangAPI.getProfile(getUUID("MrAnduss"));
         String mrUrl = userProfile.getTextures().getTextures().getSkin().getUrl();
-        Credits credits = new Credits(mrUrl);
-        mrAndussImg = credits.getMrSkin().getScaledInstance(32, 32, 0);
+        mrAndussImg = Credits.getMrSkin(mrUrl).getScaledInstance(32, 32, 0);
     }
 
     public JPanel creditsPanel() {
