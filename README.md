@@ -42,6 +42,10 @@
 ## Contributing
 If you want to add something, push it into `main` branch.
 
+## Screenshots:
+
+<img src="https://github.com/AndusDEV/SkinViewer/blob/main/v2.0.png" alt="v2.0 with skin (no 2nd layer)" width="400" heigth="350">
+
 ## Credits:
 
 - AndusDEV
