@@ -1,5 +1,4 @@
 name: skinviewer
-title: Skin Viewer
 base: core18 
 version: '0.2.1'
 summary: App for seeing Minecraft Skins
@@ -26,29 +25,3 @@ description: |
 
 grade: stable
 confinement: strict
-
-apps:
-  skinviewer:
-    extensions:
-      - gnome-3-28
-    command: skinviewer-$SNAPCRAFT_PROJECT_VERSION/skinviewer.sh
-    environment:
-      JAVA_HOME: $SNAP/usr/lib/jvm/java-8-openjdk-amd64
-      PATH: $JAVA_HOME/jre/bin:$PATH
-    plugs:
-      - home
-      - network
-
-parts:
-  skinviewer:
-    plugin: gradle
-    source: https://github.com/AndusDEV/SkinViewer.git
-    source-tag: release-$SNAPCRAFT_PROJECT_VERSION
-    gradle-version: '5.1.1'
-    gradle-output-dir: BIN
-    gradle-options: [binZip, -xtest, -xcreateGitTag]
-    override-build: |
-      snapcraftctl build
-      unzip -o DIST/skinviewer-bin-*.zip -d $SNAPCRAFT_PART_INSTALL/
-    build-packages:
-      - unzip
