@@ -12,11 +12,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Objects;
 
 import static me.kbrewster.mojangapi.MojangAPI.getUUID;
 
 public class wForm extends JPanel {
 
+    public JLabel themeImgMP = new JLabel();
+    public JLabel themeImgUP = new JLabel();
     public Image secImage;
     public Image image;
     public Image ogImage;
@@ -39,7 +42,8 @@ public class wForm extends JPanel {
     JCheckBox legLcb = new JCheckBox("Left Pants");
     JCheckBox legRcb = new JCheckBox("Right Pants");
 
-    public JLayeredPane layeredPane = new JLayeredPane();
+    public JLayeredPane layeredPaneMP = new JLayeredPane();
+    public JLayeredPane layeredPaneUP = new JLayeredPane();
 
     private final Logger log = new Logger();
 
@@ -64,7 +68,10 @@ public class wForm extends JPanel {
         p.setPreferredSize(new Dimension(600, 600));
         p.setBackground(new Color(100, 120, 136));
 
-        layeredPane.setBounds(0, 0, 790, 580);
+        layeredPaneMP.setBounds(0, 0, 600, 600);
+
+        themeImgMP.setBounds(0, 0, 790, 580);
+        themeImgMP.setOpaque(false);
 
         ogLabel.setBounds(650, 325, 170, 30);
         ogLabel.setOpaque(false);
@@ -76,10 +83,11 @@ public class wForm extends JPanel {
         btnSettings.setBounds(660, 20, 100, 25);
 
         //layers
-        layeredPane.add(secSkinLabel);
-        layeredPane.add(skinLabel);
+        layeredPaneMP.add(secSkinLabel);
+        layeredPaneMP.add(skinLabel);
+        layeredPaneMP.add(themeImgMP);
 
-        p.add(layeredPane);
+        p.add(layeredPaneMP);
         p.add(secSkinCb);
         p.add(ogLabel);
         p.add(ogSkinLabel);
@@ -87,7 +95,33 @@ public class wForm extends JPanel {
         p.setVisible(true);
 
         btnSettings.addActionListener(actionEvent -> {
-            
+            JFrame settingsFrame = new JFrame("MC Skin Viewer - Settings");
+
+            String[] themes = { "Blue", "Forest"};
+            JComboBox themeBox = new JComboBox(themes);
+            themeBox.setBounds(10, 30, 70, 30);
+
+            JLabel themeLabel = new JLabel("Themes:");
+            themeLabel.setBounds(10, 10, 30, 100);
+
+            settingsFrame.add(themeLabel);
+            settingsFrame.add(themeBox);
+
+            settingsFrame.setPreferredSize(Constants.changesSize);
+            settingsFrame.setResizable(Constants.resize);
+            settingsFrame.setLocationRelativeTo(null);
+            settingsFrame.setLayout(new FlowLayout());
+            settingsFrame.pack();
+            settingsFrame.setVisible(true);
+
+            themeBox.addActionListener(actionEvent1 -> {
+
+                if (Objects.equals(themeBox.getSelectedItem(), "Blue")) {
+                    Themes.BlueTheme();
+                } else if (Objects.equals(themeBox.getSelectedItem(), "Forest")) {
+                    Themes.ForestTheme();
+                }
+            });
         });
 
         return p;
@@ -99,6 +133,9 @@ public class wForm extends JPanel {
 
         up.setPreferredSize(new Dimension(200, 600));
         up.setBackground(new Color(0, 119, 255));
+
+        themeImgUP.setBounds(0, 0, 600, 600);
+        themeImgUP.setBounds(0, 0, 200, 600);
 
         JLabel usernameLabel = new JLabel("Username: ");
         usernameLabel.setBounds(0,10,82, 10);
@@ -130,6 +167,9 @@ public class wForm extends JPanel {
         btnTexture.setBounds(310, 65, 160, 25);
         btnTexture.setVisible(false);
 
+        layeredPaneUP.add(themeImgUP);
+
+        up.add(layeredPaneUP);
         up.add(usernameLabel);
         up.add(showedNowLabel);
         up.add(verLabel);

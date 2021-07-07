@@ -1,0 +1,54 @@
+name: skinviewer
+title: Skin Viewer
+base: core18 
+version: '0.2.1'
+summary: App for seeing Minecraft Skins
+description: |
+  App written in Java for seeing Minecraft Skins
+
+  (Works only with Minecraft premium skins)
+
+  Features;
+
+    Seeing player skin (With second layer)
+    Seeing player NameMC profile.
+    Giving URL to player skin
+    Discord RPC Integration
+
+  Issues;
+
+  If you found a bug write to me about it in issues page on github (https://github.com/AndusDEV/SkinViewer/issues)
+
+  Contributing;
+
+    If you want to help me out with this little program just do something you want and push it into main branch. I'll look at it and accept it if I'll see it as a good idea. (https://github.com/AndusDEV/SkinViewer)
+
+
+grade: stable
+confinement: strict
+
+apps:
+  skinviewer:
+    extensions:
+      - gnome-3-28
+    command: skinviewer-$SNAPCRAFT_PROJECT_VERSION/skinviewer.sh
+    environment:
+      JAVA_HOME: $SNAP/usr/lib/jvm/java-8-openjdk-amd64
+      PATH: $JAVA_HOME/jre/bin:$PATH
+    plugs:
+      - home
+      - network
+
+parts:
+  skinviewer:
+    plugin: gradle
+    source: https://github.com/AndusDEV/SkinViewer.git
+    source-tag: release-$SNAPCRAFT_PROJECT_VERSION
+    gradle-version: '5.1.1'
+    gradle-output-dir: BIN
+    gradle-options: [binZip, -xtest, -xcreateGitTag]
+    override-build: |
+      snapcraftctl build
+      unzip -o DIST/skinviewer-bin-*.zip -d $SNAPCRAFT_PART_INSTALL/
+    build-packages:
+      - unzip

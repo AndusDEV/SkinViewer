@@ -10,6 +10,6 @@ public class Constants {
     public static boolean resize = false;
 
     //App
-    public static String version = "0.2.1";
-    public static String discord_rpc_id = "appId";
+    public static String version = "0.2.2-dev";
+    public static String discord_rpc_id = "859481512469463069";
 }
